@@ -1,10 +1,19 @@
 using ForumAdminPanel.Data;
+using ForumAdminPanel.Interfaces;
+using ForumAdminPanel.Repository;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
+
+// Controllers
 builder.Services.AddControllersWithViews();
+
+// Interface repositorys
+builder.Services.AddScoped<IPostRepository, PostRepository>();
+
+// DB context
 builder.Services.AddDbContext<ApplicationDbContext>(options => 
 {
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));

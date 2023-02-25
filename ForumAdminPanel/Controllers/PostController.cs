@@ -1,4 +1,6 @@
 ﻿using ForumAdminPanel.Data;
+using ForumAdminPanel.Interfaces;
+using ForumAdminPanel.Models;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ForumAdminPanel.Controllers
@@ -6,34 +8,39 @@ namespace ForumAdminPanel.Controllers
     public class PostController : Controller
     {
         private readonly ApplicationDbContext _context;
+        private readonly IPostRepository _postRepository;
 
-        public PostController(ApplicationDbContext context)
+        public PostController(ApplicationDbContext context, IPostRepository postRepository)
         {
             _context = context;
+            _postRepository = postRepository;
         }
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            var posts = _context.Posts.ToList();
+            //var posts = await _postRepository.GetAllPosts();
 
+            IEnumerable<Post> posts = await _postRepository.GetAllPosts();
             return View(posts);
         }
 
-        public int DeletePostFromDb(int postid) 
+        public async Task<IActionResult> SinglePost(int id) 
         {
-            var requiredPost = _context.Posts.Where(p => p.Id == postid).FirstOrDefault();
+            bool doesPostExist = _context.Posts.Any(p => p.Id == id);
+            //var requestedPost = _context.Posts.FirstOrDefault(p => p.Id == id);
 
-            bool doespostExist = _context.Posts.Any(p => p.Id == postid);
+            //bool doesPostExist = _postRepository.GetPostByIdAsync(id);  
 
-            if (doespostExist)
+            Post requestedPost = await _postRepository.GetPostByIdAsync(id);
+
+            if (doesPostExist)
             {
-                return 0;
+                return View(requestedPost);
             }
             else 
             {
-                return 1;
+                return RedirectToAction("Index");
             }
 
         }
-
     }
 }

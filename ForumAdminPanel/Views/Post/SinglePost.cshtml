@@ -1,0 +1,61 @@
+﻿@model Post;
+@{
+    ViewData["Title"] = "SinglePost";
+    var answers = Model.Answers;
+    int counter = 1;
+}
+
+
+
+<section class="py-5 text-center container">
+    <div class="row py-lg-5">
+        <div class="col-lg-6 col-md-8 mx-auto">
+            <h1 class="fw-light">Single Post</h1>
+            <p class="lead text-muted">Page for single post with detailed post informations</p>
+        </div>
+        <a asp-controller="Post" asp-action="Index" class="btn btn-sm btn-outline-secondary">Back to posts</a>
+    </div>
+</section>
+
+<div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
+
+
+        <div class="col">
+            <div class="card shadow-sm">
+                <div class="card-body">
+
+                <h6 class="card-text">Theme: @Model.Theme.Title</h6>
+
+                    <p class="card-text">Post Title: @Model.Title</p>
+                    <p class="card-text">Post Body: @Model.Body</p>
+                    <p class="card-text">User ID: @Model.User.UserName</p>
+
+                    @foreach (var answer in answers)
+                    {
+                        if (counter % 2 == 0)
+                        {
+                            <p class="card-text" style="color:green">Answer no. @counter:  @answer.Body</p>
+                            @*<p class="card-text">@answer.AnswerFromUser</p>*@
+                        }
+                        else
+                        {
+                            <p class="card-text" style="color:red">Answer no. @counter:  @answer.Body</p>
+                            @*<p class="card-text">@answer.AnswerFromUser</p>*@
+                        }
+                            counter++;
+                    }
+
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div class="btn-group">
+                            <button type="button" asp-action="DeletePostFromDb" class="btn btn-sm btn-outline-secondary">Delete</button>
+                            <button type="button" class="btn btn-sm btn-outline-secondary">Edit</button>
+                        </div>
+                        <small class="text-muted">9 mins</small>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    
+
+</div>
