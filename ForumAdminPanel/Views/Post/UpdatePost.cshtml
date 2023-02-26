@@ -1,0 +1,65 @@
+﻿@using ForumAdminPanel.ViewModels;
+@model UpdatePostViewModel
+@{
+    var answers = Model.Answers;
+    int counter = 1;
+}
+
+<form method="post" asp-action="UpdatePost" enctype="multipart/form-data">
+    
+
+    <input type="hidden" value="ThemeId" id="ThemeId" />
+
+
+    <div class="form-group">
+        <label asp-for="Id">Id</label>
+        <input asp-for="Id" class="form-control" placeholder="Id">
+        <span asp-validation-for="Id" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Title">Title</label>
+        <input asp-for="Title" class="form-control" placeholder="Title">
+        <span asp-validation-for="Title" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Body">Body</label>
+        <input asp-for="Body"  class="form-control" placeholder="Body">
+        <span asp-validation-for="Body" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Value">Value</label>
+        <input asp-for="Value" class="form-control" placeholder="Street">
+        <span asp-validation-for="Value" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="ThemeId">ThemeId</label>
+        <input asp-for="ThemeId" class="form-control" placeholder="ThemeId">
+        <span asp-validation-for="ThemeId" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="AnswerId">Answer Id</label>
+        <input asp-for="AnswerId" class="form-control" placeholder="Street">
+        <span asp-validation-for="AnswerId" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        @foreach (var answer in answers)
+        {
+            if (counter % 2 == 0)
+            {
+                <label style="color:green" asp-for=@answer>Answer no.: @counter</label>
+                <input asp-for=@answer.Body class="form-control" placeholder="Answer">
+                <input asp-for=@answer.AnswerFromUser.UserName class="form-control" placeholder="Answer">
+                <span asp-validation-for="AnswerId" class="text-danger"></span>
+            }
+             else
+            {  <label style="color:red" asp-for=@answer>Answer no.: @counter</label>
+                <input asp-for=@answer.Body class="form-control" placeholder="Answer">
+                <input asp-for=@answer.AnswerFromUser.UserName class="form-control" placeholder="Answer">
+                <span asp-validation-for="AnswerId" class="text-danger"></span>
+            }
+            counter++;
+        }
+
+    </div>
+    <button type="submit" class="btn btn-primary">Submit</button>
+</form>

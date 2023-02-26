@@ -17,7 +17,7 @@ namespace ForumAdminPanel.Repository
         // Get all posts
         public async Task<IEnumerable<Post>> GetAllPosts()
         {
-              return await _context.Posts.ToListAsync();
+              return await _context.Posts.Include(i=>i.Theme).ToListAsync();
         }
 
         //Get single post
@@ -56,7 +56,9 @@ namespace ForumAdminPanel.Repository
 
         public bool UpdatePost(Post post)
         {
-            throw new NotImplementedException();
+            _context.Update(post);
+            return Save();
+
         }
     }
 }
