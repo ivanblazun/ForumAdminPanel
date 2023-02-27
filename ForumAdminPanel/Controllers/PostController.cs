@@ -69,7 +69,6 @@ namespace ForumAdminPanel.Controllers
                 };
                 return View(postViewModel);
             }
-
         }
 
         [HttpPost]
@@ -80,8 +79,7 @@ namespace ForumAdminPanel.Controllers
                 ModelState.AddModelError("", "Failed to update post");
                 return View("Edit", updatePostViewModel);
             }
-            
-            
+           
             var requestedPost = await _postRepository.GetPostByIdAsync(id);
 
             if (requestedPost != null)
@@ -92,18 +90,6 @@ namespace ForumAdminPanel.Controllers
                 requestedPost.ThemeId = updatePostViewModel.ThemeId;
                 requestedPost.AnswerId = updatePostViewModel.AnswerId;
                 requestedPost.Answers = updatePostViewModel.Answers;
-                
-                //var post = new Post
-                //{
-                //    Id = id,
-                //    Title = updatePostViewModel.Title,
-                //    Body = updatePostViewModel.Body,
-                //    Value = updatePostViewModel.Value,
-                //    ThemeId = updatePostViewModel.ThemeId,
-                //    AnswerId = updatePostViewModel.AnswerId,
-                //    Answers = updatePostViewModel.Answers,
-
-                //};
 
                 _postRepository.UpdatePost(requestedPost);
             
