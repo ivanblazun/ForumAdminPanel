@@ -94,11 +94,13 @@ namespace ForumAdminPanel.Controllers
             return View("SuccessRegister");
         }
 
+
         [HttpPost]
         public async Task<IActionResult> Logout()
         { 
-            await   _signInManager.SignOutAsync();
-            return RedirectToAction("Home","Index");
+            await  _signInManager.SignOutAsync();
+            return RedirectToAction("Index","Home");
+            //return View("Loggedout");
         }
     }
 }
