@@ -49,6 +49,9 @@ app.UseStaticFiles();
 
 app.UseRouting();
 
+//check for private routes...
+app.UseAuthentication();    
+
 app.UseAuthorization();
 
 app.MapControllerRoute(
