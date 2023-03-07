@@ -3,7 +3,7 @@ using ForumAdminPanel.Interfaces;
 using ForumAdminPanel.Models;
 using ForumAdminPanel.ViewModels;
 using Microsoft.AspNetCore.Mvc;
-
+using System.Web;
 namespace ForumAdminPanel.Controllers
 {
     public class PostController : Controller
@@ -20,6 +20,8 @@ namespace ForumAdminPanel.Controllers
         //All posts action
         public async Task<IActionResult> Index()
         {
+
+
             //var posts = await _postRepository.GetAllPosts();
 
             IEnumerable<Post> posts = await _postRepository.GetAllPosts();
