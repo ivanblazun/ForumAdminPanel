@@ -1,0 +1,85 @@
+﻿@using ForumAdminPanel.ViewModels;
+@model UpdateUserViewModel
+@{  
+     
+    List<Post> posts = Model.Posts;
+    List<Answer> answers = Model.Answers;
+    int counter = 1;
+}
+
+<form method="post" asp-action="UpdateUser" enctype="multipart/form-data">
+
+    <div class="form-group">
+        <label asp-for="Id">Id</label>
+        <input asp-for="Id" class="form-control" placeholder="Id">
+        <span asp-validation-for="Id" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="UserName">UserName</label>
+        <input asp-for="UserName" class="form-control" placeholder="UserName">
+        <span asp-validation-for="UserName" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Email">Email</label>
+        <input asp-for="Email" class="form-control" placeholder="Email">
+        <span asp-validation-for="Email" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Password">Password</label>
+        <input asp-for="Password" class="form-control" placeholder="Street">
+        <span asp-validation-for="Password" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="RegisteredDate">RegisteredDate</label>
+        <input asp-for="RegisteredDate" class="form-control" placeholder="RegisteredDate">
+        <span asp-validation-for="RegisteredDate" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="UserStatus">UserStatus</label>
+        <input asp-for="UserStatus" class="form-control" placeholder="Street">
+        <span asp-validation-for="UserStatus" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        @foreach (var post in posts)
+        {
+            if (counter % 2 == 0)
+            {
+                <label style="color:green" asp-for=@post>post no.: @counter</label>
+                <input asp-for=@post.Title class="form-control" placeholder="post">
+                <input asp-for=@post.Body class="form-control" placeholder="post">
+                <span asp-validation-for="Posts" class="text-danger"></span>
+            }
+            else
+            {
+                  <label style="color:red" asp-for=@post>post no.: @counter</label>
+                <input asp-for=@post.Title class="form-control" placeholder="post">
+                <input asp-for=@post.Body class="form-control" placeholder="post">
+               <span asp-validation-for="Posts" class="text-danger"></span>
+            }
+            counter++;
+        }
+
+    </div>
+        <div class="form-group">
+        @foreach (var answer in answers)
+        {
+            if (counter % 2 == 0)
+            {
+                        <label style="color:green" asp-for=@answer>Answer no.: @counter</label>
+                        <input asp-for=@answer.Body class="form-control" placeholder="Answer">
+                        <input asp-for=@answer.AnswerFromUser.UserName class="form-control" placeholder="Answer">
+                        <span asp-validation-for="Answers" class="text-danger"></span>
+            }
+            else
+            {
+                         <label style="color:red" asp-for=@answer>Answer no.: @counter</label>
+                        <input asp-for=@answer.Body class="form-control" placeholder="Answer">
+                        <input asp-for=@answer.AnswerFromUser.UserName class="form-control" placeholder="Answer">
+                        <span asp-validation-for="Answers" class="text-danger"></span>
+            }
+            counter++;
+        }
+
+    </div>
+    <button type="submit" class="btn btn-primary">Submit</button>
+</form>

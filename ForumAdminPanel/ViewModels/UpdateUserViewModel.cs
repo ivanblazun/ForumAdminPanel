@@ -2,18 +2,19 @@
 
 namespace ForumAdminPanel.ViewModels
 {
-    public class UserViewModel
+    public class UpdateUserViewModel
     {
-        public string Id { get; set; }
+        public int Id { get; set; }
+        
         public string UserName { get; set; }
+        
         public string Email { get; set; }
-
+        
         public string Password { get; set; }
+        
         public DateTime RegisteredDate { get; set; }
 
         public int UserStatus { get; set; }
-
-        // Navigation props
 
         public List<Post> Posts { get; set; }
 

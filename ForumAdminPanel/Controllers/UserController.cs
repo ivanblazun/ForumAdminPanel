@@ -1,7 +1,10 @@
 ﻿using ForumAdminPanel.Data;
 using ForumAdminPanel.Interfaces;
+using ForumAdminPanel.Models;
+using ForumAdminPanel.Repository;
 using ForumAdminPanel.ViewModels;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
 
 namespace ForumAdminPanel.Controllers
@@ -9,10 +12,12 @@ namespace ForumAdminPanel.Controllers
     public class UserController : Controller
     {
         private readonly IUserRepository _userRepository;
+        private readonly ApplicationDbContext _context;
 
-        public UserController(IUserRepository userRepository) 
+        public UserController(ApplicationDbContext context, IUserRepository userRepository) 
         {
             _userRepository = userRepository;
+            _context= context;
         } 
         public async Task<IActionResult> Index()
         {   
@@ -35,6 +40,82 @@ namespace ForumAdminPanel.Controllers
             }
 
             return View(result);
+        }
+
+        public async Task<IActionResult> SingleUser(int id)
+        {
+            bool doesPostExist = _context.Posts.Any(p => p.Id == id);
+
+            User user = await _userRepository.GetUserByIdAsync(id);
+
+            if (doesPostExist)
+            {
+                return View(user);
+            }
+            else 
+            {
+                return RedirectToAction("Index");
+            }
+        }
+
+        //Edit user action
+        [HttpGet]
+        public async Task<IActionResult> UpdateUser(int id)
+        {
+            bool doesUserExist = _context.Users.Any(u => u.Id == id);
+
+            if (!doesUserExist) { return View("User not found"); }
+            else
+            {
+                var requestedUser = await _userRepository.GetUserByIdAsync(id);
+
+                
+
+                var userViewModel = new UpdateUserViewModel
+                {
+                    Id = id,
+                    UserName= requestedUser.UserName,
+                    Email= requestedUser.Email,
+                    Password= requestedUser.Password,
+                    RegisteredDate = requestedUser.RegisteredDate,
+                    UserStatus = requestedUser.UserStatus,
+                    Posts = requestedUser.Posts,
+                    Answers = requestedUser.Answers,
+                };
+                return View(userViewModel);
+            }
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> UpdateUser(int id, UpdateUserViewModel updateUsertViewModel)
+        {
+            if (!ModelState.IsValid)
+            {
+                ModelState.AddModelError("", "Failed to update post");
+                return View("Edit", updateUsertViewModel);
+            }
+
+            var requestedUser = await _userRepository.GetUserByIdAsync(id);
+
+            if (requestedUser != null)
+            {
+                requestedUser.Id = id;
+                requestedUser.UserName = updateUsertViewModel.UserName;
+                requestedUser.Email = updateUsertViewModel.Email;
+                requestedUser.Password = updateUsertViewModel.Password;
+                requestedUser.RegisteredDate = updateUsertViewModel.RegisteredDate;
+                requestedUser.UserStatus = updateUsertViewModel.UserStatus;
+                requestedUser.Posts = updateUsertViewModel.Posts;
+                requestedUser.Answers = updateUsertViewModel.Answers;
+
+                _userRepository.UpdateUser(requestedUser);
+
+                return RedirectToAction("Index");
+            }
+            else
+            {
+                return null;
+            }
         }
     }
 }

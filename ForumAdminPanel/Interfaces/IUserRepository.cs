@@ -5,7 +5,7 @@ namespace ForumAdminPanel.Interfaces
     public interface IUserRepository
     {
         Task<IEnumerable<User>> GetAllUsers();
-        Task<User> GetUserByIdAsync(string id);
+        Task<User> GetUserByIdAsync(int id);
 
         bool AddUser(User user);
         bool UpdateUser(User user);
