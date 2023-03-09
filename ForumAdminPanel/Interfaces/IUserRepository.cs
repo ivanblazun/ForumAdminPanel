@@ -7,6 +7,9 @@ namespace ForumAdminPanel.Interfaces
         Task<IEnumerable<User>> GetAllUsers();
         Task<User> GetUserByIdAsync(int id);
 
+        // Filter user interf.
+        Task <IEnumerable<User>> GetUsersBySearchInput(string searchInput);
+
         bool AddUser(User user);
         bool UpdateUser(User user);
         bool DeleteUser(User user);

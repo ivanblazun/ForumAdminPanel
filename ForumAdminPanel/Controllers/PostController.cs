@@ -21,12 +21,14 @@ namespace ForumAdminPanel.Controllers
         public async Task<IActionResult> Index()
         {
 
-
             //var posts = await _postRepository.GetAllPosts();
 
             IEnumerable<Post> posts = await _postRepository.GetAllPosts();
             return View(posts);
         }
+
+        //Filter posts action ////////////////////////
+
 
         //Single post action
         public async Task<IActionResult> SinglePost(int id) 

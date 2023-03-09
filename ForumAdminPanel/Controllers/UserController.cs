@@ -14,17 +14,17 @@ namespace ForumAdminPanel.Controllers
         private readonly IUserRepository _userRepository;
         private readonly ApplicationDbContext _context;
 
-        public UserController(ApplicationDbContext context, IUserRepository userRepository) 
+        public UserController(ApplicationDbContext context, IUserRepository userRepository)
         {
             _userRepository = userRepository;
-            _context= context;
-        } 
+            _context = context;
+        }
         public async Task<IActionResult> Index()
-        {   
-            var users= await _userRepository.GetAllUsers();
+        {
+            var users = await _userRepository.GetAllUsers();
 
-            List<UserViewModel> result= new List<UserViewModel>();
-            foreach (var user in users) 
+            List<UserViewModel> result = new List<UserViewModel>();
+            foreach (var user in users)
             {
                 var userViewModel = new UserViewModel()
                 {
@@ -42,7 +42,69 @@ namespace ForumAdminPanel.Controllers
             return View(result);
         }
 
-        public async Task<IActionResult> SingleUser(int id)
+        // Filter users
+        [HttpGet]
+        public async Task<IActionResult> SearchUser()
+        {   
+            var  users= await _userRepository.GetUsersBySearchInput();
+
+            List<UserViewModel> result = new List<UserViewModel>();
+
+            if (users != null)
+            {
+                foreach (var user in users)
+                {
+                    var userViewModel = new UserViewModel()
+                    {
+                        Id = user.Id.ToString(),
+                        UserName = user.UserName,
+                        RegisteredDate = user.RegisteredDate,
+                        UserStatus = user.UserStatus,
+                        Posts = user.Posts,
+                        Answers = user.Answers,
+                    };
+
+                    result.Add(userViewModel);
+                }
+                return View(result);
+            }
+            else 
+            {
+                return View(result);
+            }
+
+        }
+        [HttpPost]
+        public async Task<IActionResult> SearchUser(string searchInput)
+        {
+            var users = await _userRepository.GetUsersBySearchInput(searchInput);
+
+            List<UserViewModel> result = new List<UserViewModel>();
+
+            if (users != null)
+            {
+                foreach (var user in users)
+                {
+                    var userViewModel = new UserViewModel()
+                    {
+                        Id = user.Id.ToString(),
+                        UserName = user.UserName,
+                        RegisteredDate = user.RegisteredDate,
+                        UserStatus = user.UserStatus,
+                        Posts = user.Posts,
+                        Answers = user.Answers,
+                    };
+
+                    result.Add(userViewModel);
+                }
+                return View(result);
+            }
+            else
+            {
+                return View(result);
+            }
+        }
+            public async Task<IActionResult> SingleUser(int id)
         {
             bool doesPostExist = _context.Posts.Any(p => p.Id == id);
 
@@ -79,8 +141,8 @@ namespace ForumAdminPanel.Controllers
                     Password= requestedUser.Password,
                     RegisteredDate = requestedUser.RegisteredDate,
                     UserStatus = requestedUser.UserStatus,
-                    Posts = requestedUser.Posts,
-                    Answers = requestedUser.Answers,
+                    //Posts = requestedUser.Posts,
+                    //Answers = requestedUser.Answers,
                 };
                 return View(userViewModel);
             }
@@ -105,8 +167,8 @@ namespace ForumAdminPanel.Controllers
                 requestedUser.Password = updateUsertViewModel.Password;
                 requestedUser.RegisteredDate = updateUsertViewModel.RegisteredDate;
                 requestedUser.UserStatus = updateUsertViewModel.UserStatus;
-                requestedUser.Posts = updateUsertViewModel.Posts;
-                requestedUser.Answers = updateUsertViewModel.Answers;
+                //requestedUser.Posts = updateUsertViewModel.Posts;
+                //requestedUser.Answers = updateUsertViewModel.Answers;
 
                 _userRepository.UpdateUser(requestedUser);
 

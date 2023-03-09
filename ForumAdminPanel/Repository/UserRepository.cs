@@ -39,6 +39,14 @@ namespace ForumAdminPanel.Repository
             return await _context.Users.Include(u=>u.Posts).Include(u=>u.Answers).FirstOrDefaultAsync(u=>u.Id== id);
         }
 
+        public async Task<IEnumerable<User>> GetUsersBySearchInput(string searchInput)
+        {
+            return await _context.Users
+                .Include(u => u.Posts)
+                .Include(u => u.Answers)
+                .Where(u => u.UserName == searchInput || u.Email==searchInput).ToListAsync();
+        }
+
         public bool Save()
         {
             var saved =_context.SaveChanges();

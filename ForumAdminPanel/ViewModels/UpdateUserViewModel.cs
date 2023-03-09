@@ -16,8 +16,8 @@ namespace ForumAdminPanel.ViewModels
 
         public int UserStatus { get; set; }
 
-        public List<Post> Posts { get; set; }
+        //public List<Post> Posts { get; set; }
 
-        public List<Answer> Answers { get; set; }
+        //public List<Answer> Answers { get; set; }
     }
 }
