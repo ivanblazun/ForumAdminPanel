@@ -43,10 +43,18 @@ namespace ForumAdminPanel.Controllers
         }
 
         // Filter users
-        [HttpGet]
-        public async Task<IActionResult> SearchUser()
+        public async Task<IActionResult> SearchUserInput()
+        {
+            SearchString searchString = new SearchString();
+
+            return View(searchString);        
+        }
+        
+        public async Task<IActionResult> SearchUserResult(SearchString searchInput)
         {   
-            var  users= await _userRepository.GetUsersBySearchInput();
+            string input=searchInput.Input;
+
+            var  users= await _userRepository.GetUsersBySearchInput(input);
 
             List<UserViewModel> result = new List<UserViewModel>();
 
@@ -72,39 +80,39 @@ namespace ForumAdminPanel.Controllers
             {
                 return View(result);
             }
-
         }
-        [HttpPost]
-        public async Task<IActionResult> SearchUser(string searchInput)
-        {
-            var users = await _userRepository.GetUsersBySearchInput(searchInput);
+    
+        //[HttpPost]
+        //public async Task<IActionResult> SearchUser(string searchInput)
+        //{
+        //    var users = await _userRepository.GetUsersBySearchInput(searchInput);
 
-            List<UserViewModel> result = new List<UserViewModel>();
+        //    List<UserViewModel> result = new List<UserViewModel>();
 
-            if (users != null)
-            {
-                foreach (var user in users)
-                {
-                    var userViewModel = new UserViewModel()
-                    {
-                        Id = user.Id.ToString(),
-                        UserName = user.UserName,
-                        RegisteredDate = user.RegisteredDate,
-                        UserStatus = user.UserStatus,
-                        Posts = user.Posts,
-                        Answers = user.Answers,
-                    };
+        //    if (users != null)
+        //    {
+        //        foreach (var user in users)
+        //        {
+        //            var userViewModel = new UserViewModel()
+        //            {
+        //                Id = user.Id.ToString(),
+        //                UserName = user.UserName,
+        //                RegisteredDate = user.RegisteredDate,
+        //                UserStatus = user.UserStatus,
+        //                Posts = user.Posts,
+        //                Answers = user.Answers,
+        //            };
 
-                    result.Add(userViewModel);
-                }
-                return View(result);
-            }
-            else
-            {
-                return View(result);
-            }
-        }
-            public async Task<IActionResult> SingleUser(int id)
+        //            result.Add(userViewModel);
+        //        }
+        //        return View(result);
+        //    }
+        //    else
+        //    {
+        //        return View(result);
+        //    }
+        //}
+        public async Task<IActionResult> SingleUser(int id)
         {
             bool doesPostExist = _context.Posts.Any(p => p.Id == id);
 
@@ -114,7 +122,7 @@ namespace ForumAdminPanel.Controllers
             {
                 return View(user);
             }
-            else 
+            else
             {
                 return RedirectToAction("Index");
             }

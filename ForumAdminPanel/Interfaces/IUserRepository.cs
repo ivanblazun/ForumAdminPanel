@@ -1,4 +1,5 @@
 ﻿using ForumAdminPanel.Models;
+using ForumAdminPanel.ViewModels;
 
 namespace ForumAdminPanel.Interfaces
 {

@@ -1,6 +1,7 @@
 ﻿using ForumAdminPanel.Data;
 using ForumAdminPanel.Interfaces;
 using ForumAdminPanel.Models;
+using ForumAdminPanel.ViewModels;
 using Microsoft.EntityFrameworkCore;
 
 namespace ForumAdminPanel.Repository
