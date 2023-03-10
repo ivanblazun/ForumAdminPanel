@@ -42,14 +42,15 @@ namespace ForumAdminPanel.Controllers
             return View(result);
         }
 
-        // Filter users
+        //Get users filter 
         public async Task<IActionResult> SearchUserInput()
         {
             SearchString searchString = new SearchString();
 
             return View(searchString);        
         }
-        
+
+        //Get filtered users list
         public async Task<IActionResult> SearchUserResult(SearchString searchInput)
         {   
             string input=searchInput.Input;
@@ -81,37 +82,8 @@ namespace ForumAdminPanel.Controllers
                 return View(result);
             }
         }
-    
-        //[HttpPost]
-        //public async Task<IActionResult> SearchUser(string searchInput)
-        //{
-        //    var users = await _userRepository.GetUsersBySearchInput(searchInput);
 
-        //    List<UserViewModel> result = new List<UserViewModel>();
-
-        //    if (users != null)
-        //    {
-        //        foreach (var user in users)
-        //        {
-        //            var userViewModel = new UserViewModel()
-        //            {
-        //                Id = user.Id.ToString(),
-        //                UserName = user.UserName,
-        //                RegisteredDate = user.RegisteredDate,
-        //                UserStatus = user.UserStatus,
-        //                Posts = user.Posts,
-        //                Answers = user.Answers,
-        //            };
-
-        //            result.Add(userViewModel);
-        //        }
-        //        return View(result);
-        //    }
-        //    else
-        //    {
-        //        return View(result);
-        //    }
-        //}
+        // Get single user
         public async Task<IActionResult> SingleUser(int id)
         {
             bool doesPostExist = _context.Posts.Any(p => p.Id == id);
@@ -138,8 +110,6 @@ namespace ForumAdminPanel.Controllers
             else
             {
                 var requestedUser = await _userRepository.GetUserByIdAsync(id);
-
-                
 
                 var userViewModel = new UpdateUserViewModel
                 {

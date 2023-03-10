@@ -45,7 +45,7 @@ namespace ForumAdminPanel.Repository
             return await _context.Users
                 .Include(u => u.Posts)
                 .Include(u => u.Answers)
-                .Where(u => u.UserName == searchInput || u.Email==searchInput).ToListAsync();
+                .Where(u => u.UserName.Contains(searchInput) || u.Email.Contains(searchInput)).ToListAsync();
         }
 
         public bool Save()
