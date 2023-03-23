@@ -100,6 +100,16 @@ namespace ForumAdminPanel.Controllers
             }
         }
 
+        // Get user by id from stored procedures
+
+        public ActionResult GetUserByIdFromProc(int id)
+        {
+            User user = (User)_context.Users.FromSqlRaw<User>("Users_GetUserById {0}",id).ToList().FirstOrDefault();
+
+
+            return View(); 
+        }
+
         //Edit user action
         [HttpGet]
         public async Task<IActionResult> UpdateUser(int id)
