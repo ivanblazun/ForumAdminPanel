@@ -107,7 +107,7 @@ namespace ForumAdminPanel.Controllers
         {
             User user = (User)_context.Users.FromSqlRaw<User>("Users_GetUserById {0}",id).ToList().FirstOrDefault();
 
-            List<User> Iuser =  await _userRepository.GetUserByIdProc(id).;
+            List<User> Iuser =  await _userRepository.GetUserByIdProc(id);
 
             bool doesUserExist=user != null;
 
