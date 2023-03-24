@@ -6,6 +6,7 @@ using ForumAdminPanel.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
+using System.Collections.Generic;
 
 namespace ForumAdminPanel.Controllers
 {
@@ -102,10 +103,13 @@ namespace ForumAdminPanel.Controllers
 
         // Get user by id from stored procedures
 
-        public ActionResult GetUserByIdFromProc(int id)
+        public async Task<IActionResult> GetUserByIdFromProc(int id)
         {
             User user = (User)_context.Users.FromSqlRaw<User>("Users_GetUserById {0}",id).ToList().FirstOrDefault();
 
+            List<User> Iuser =  await _userRepository.GetUserByIdProc(id).;
+
+            bool doesUserExist=user != null;
 
             return View(); 
         }

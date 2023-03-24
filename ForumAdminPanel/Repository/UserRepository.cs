@@ -40,6 +40,11 @@ namespace ForumAdminPanel.Repository
             return await _context.Users.Include(u=>u.Posts).Include(u=>u.Answers).FirstOrDefaultAsync(u=>u.Id== id);
         }
 
+        public async Task <IEnumerable<User>> GetUserByIdProc(int id)
+        {
+            return await (IEnumerable<User>)_context.Users.FromSqlRaw<User>("Users_GetUserById {0}", id).ToList().FirstOrDefaultAsync();
+        }
+
         public async Task<IEnumerable<User>> GetUsersBySearchInput(string searchInput)
         {
             return await _context.Users
