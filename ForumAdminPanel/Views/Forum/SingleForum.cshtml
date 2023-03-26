@@ -1,0 +1,43 @@
+﻿@model Fora;
+@{
+    ViewData["Title"] = "SingleForum";
+
+}
+
+<section class="py-5 text-center container">
+    <div class="row py-lg-5">
+        <div class="col-lg-6 col-md-8 mx-auto">
+            <h1 class="fw-light">Single Forum</h1>
+            <p class="lead text-muted">Page for single forum with detailed forum informations</p>
+        </div>
+        <a asp-controller="Forum" asp-action="Index" class="btn btn-sm btn-outline-secondary">Back to forums</a>
+    </div>
+</section>
+
+<div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
+
+
+    <div class="col">
+        <div class="card shadow-sm">
+            <div class="card-body">
+
+                <h6 class="card-text">Theme: @Model.Id</h6>
+
+                <p class="card-text">Post Title: @Model.Name</p>
+                <p class="card-text">Post Body: @Model.UserCounter</p>
+                <p class="card-text">User ID: @Model.ThemesCounter</p>
+
+                <div class="d-flex justify-content-between align-items-center">
+                    <div class="btn-group">
+                        <a type="button" asp-action="Index" asp- class="btn btn-sm btn-outline-secondary">Delete</a>
+                        <a asp-controller="Forum" asp-action="Index" asp-route-id="@Model.Id" type="button" class="btn btn-sm btn-outline-secondary">Edit Forum</a>
+                    </div>
+                    <small class="text-muted">9 mins</small>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+</div>

@@ -12,13 +12,14 @@ namespace ForumAdminPanel.Data
         }
 
         public DbSet<User> Users { get; set; }
-        public DbSet<Forum> Forums { get; set; }
+        public DbSet<Fora> Fora { get; set; }
         public DbSet<Answer> Answers { get; set; }
         public DbSet<Post> Posts { get; set; }
         public DbSet<Theme> Themes { get; set; }
         public DbSet<UserProfile> UserProfiles { get; set; }
         public DbSet<UserStatus> UserStatuses { get; set; }
         public DbSet<Response> Responses { get; set; }
+        public DbSet<MainForum> MainForums { get; set; }
 
 
     }

@@ -40,9 +40,9 @@ namespace ForumAdminPanel.Repository
             return await _context.Users.Include(u=>u.Posts).Include(u=>u.Answers).FirstOrDefaultAsync(u=>u.Id== id);
         }
 
-        public async Task <IEnumerable<User>> GetUserByIdProc(int id)
+        public   IEnumerable<User> GetUserByIdProc(int id)
         {
-            return await (IEnumerable<User>)_context.Users.FromSqlRaw<User>("Users_GetUserById {0}", id).ToList().FirstOrDefaultAsync();
+            return (IEnumerable<User>)_context.Users.FromSqlRaw<User>("Users_GetUserById {0}", id).ToList().FirstOrDefault();
         }
 
         public async Task<IEnumerable<User>> GetUsersBySearchInput(string searchInput)

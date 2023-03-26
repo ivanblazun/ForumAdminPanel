@@ -1,12 +1,11 @@
 ﻿using ForumAdminPanel.Data;
 using ForumAdminPanel.Interfaces;
 using ForumAdminPanel.Models;
-using ForumAdminPanel.Repository;
+
 using ForumAdminPanel.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.ChangeTracking;
-using System.Collections.Generic;
+
 
 namespace ForumAdminPanel.Controllers
 {
@@ -103,11 +102,9 @@ namespace ForumAdminPanel.Controllers
 
         // Get user by id from stored procedures
 
-        public async Task<IActionResult> GetUserByIdFromProc(int id)
+        public IActionResult GetUserByIdFromProc(int id)
         {
             User user = (User)_context.Users.FromSqlRaw<User>("Users_GetUserById {0}",id).ToList().FirstOrDefault();
-
-            List<User> Iuser =  await _userRepository.GetUserByIdProc(id);
 
             bool doesUserExist=user != null;
 

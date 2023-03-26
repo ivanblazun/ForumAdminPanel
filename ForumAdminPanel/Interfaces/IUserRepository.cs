@@ -9,7 +9,7 @@ namespace ForumAdminPanel.Interfaces
         Task<User> GetUserByIdAsync(int id);
 
         // Get user by id from proc
-        Task <IEnumerable<User>> GetUserByIdProc(int id);
+         IEnumerable<User> GetUserByIdProc(int id);
 
         // Filter user interf.
         Task <IEnumerable<User>> GetUsersBySearchInput(string searchInput);

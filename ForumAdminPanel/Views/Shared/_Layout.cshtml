@@ -29,6 +29,12 @@
                         @if(User.Identity.IsAuthenticated && User.IsInRole("admin"))
                         {
                             <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Forum" asp-action="Index">Forums</a>
+                            </li>
+                                 <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Forum" asp-action="SearchForumInput">Search Forums</a>
+                            </li>
+                            <li class="nav-item">
                                 <a class="nav-link text-dark" asp-area="" asp-controller="User" asp-action="Index">Users</a>
                             </li>
                              <li class="nav-item">

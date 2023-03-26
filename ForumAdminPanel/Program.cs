@@ -23,6 +23,8 @@ builder.Services.AddControllersWithViews();
 // Interface repositorys
 builder.Services.AddScoped<IPostRepository, PostRepository>();
 builder.Services.AddScoped<IUserRepository, UserRepository>();
+builder.Services.AddScoped<IForumRepository, ForumRepository>();
+
 
 // DB context
 builder.Services.AddDbContext<ApplicationDbContext>(options => 

@@ -1,0 +1,52 @@
+﻿@using ForumAdminPanel.ViewModels;
+@model IEnumerable<ForumViewModel>
+
+@{
+    var forumList = Model.ToList();
+}
+<h1>Search user resoult</h1>
+
+<div>
+    <a asp-action="SearchForumInput" class="btn btn-light">Return to search</a>
+</div>
+
+<section class="py-5 text-center container">
+    <div class="row py-lg-5">
+        <div class="col-lg-6 col-md-8 mx-auto">
+            <h1 class="fw-light">Forums</h1>
+            <p class="lead text-muted">Something short and leading about the collection below—its contents, the creator, etc. Make it short and sweet, but not too short so folks don’t simply skip over it entirely.</p>
+            <p>
+                <a href="#" class="btn btn-primary my-2">Main call to action</a>
+                <a href="#" class="btn btn-secondary my-2">Secondary action</a>
+            </p>
+        </div>
+    </div>
+</section>
+
+@foreach (var forum in forumList)
+{
+    <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
+        <div class="col">
+            <div class="card shadow-sm">
+                <div class="card-body">
+                    <p class="card-text">forumId: @forum.Id</p>
+                    <p class="card-text">forumName: @forum.Name</p>
+                    <p class="card-text">forumStatus: @forum.MainForumId</p>
+                    <p class="card-text">forumStatus: @forum.ThemesCounter</p>
+                    <p class="card-text">forumStatus: @forum.UserCounter</p>
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div class="btn-group">
+                            <a asp-controller="Forum" asp-action="SingleForum" asp-route-id="@forum.Id" type="button" class="btn btn-sm btn-outline-secondary">View</a>
+                            <button type="button" class="btn btn-sm btn-outline-secondary">Edit</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+}
+
+
+
+
