@@ -1,10 +1,10 @@
 //SQL
-1. Trigger na fora.ThemesCounter i fora.UserCounter
-2. Trigger na otvaranje posta da se tema sama kreira 
-3. Trigger na otvaranje teme da se popuni themes.ForumId
-4. Procedura za globalni search nad bazom
-5. Trigger na otvaranje novog foruma da se puni MainForums.ForumsCounter
-6. Trigger na stvaranje korisnika da se puni MainForums.UserCounter
++1. Trigger na fora.ThemesCounter 
+?2. Trigger na otvaranje posta da se tema sama kreira 
+?3. Trigger na otvaranje teme da se popuni themes.ForumId
+?4. Procedura za globalni search nad bazom
++5. Trigger na otvaranje novog foruma da se puni MainForums.ForumsCounter
++6. Trigger na stvaranje korisnika da se puni MainForums.UserCounter
 
 //ASP.NET MVC
 1.Search input na postovima
